@@ -49,7 +49,7 @@ import org.openhubframework.openhub.spi.msg.MessageService;
 /**
  * Reads messages from DB and sends them for next processing.
  * Execution will stop when there is no further message for processing.
- * <p/>
+ * <p>
  * This executor is invoked by {@link JobStarterForMessagePooling}.
  *
  * @author Petr Juza

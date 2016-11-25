@@ -32,7 +32,7 @@ import org.openhubframework.openhub.spi.throttling.ThrottleScope;
 
 /**
  * In-memory implementation of {@link ThrottleCounter} interface.
- * <p/>
+ * <p>
  * Fast and enough-solution for one server solution but it's not sufficient for cluster environment.
  *
  * @author Petr Juza

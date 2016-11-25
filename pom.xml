@@ -98,6 +98,16 @@
         </profile>
 
         <profile>
+            <id>java8-disable-strict-javadoc</id>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <properties>
+                <javadoc.doclint.none>-Xdoclint:none</javadoc.doclint.none>
+            </properties>
+        </profile>
+        
+        <profile>
             <id>release</id>
             <activation>
                 <property>
@@ -136,7 +146,7 @@
 
     <properties>
         <!-- java language version -->
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- OpenHub Spring Boot application -->
@@ -536,10 +546,13 @@
                         <additionalDependencies>
                             <additionalDependency>
                                 <groupId>org.hibernate.javax.persistence</groupId>
-                                <artifactId>hibernate-jpa-2.0-api</artifactId>
-                                <version>1.0.1.Final</version>
+                                <artifactId>hibernate-jpa-2.1-api</artifactId>
+                                <version>1.0.0.Final</version>
                             </additionalDependency>
                         </additionalDependencies>
+                        <!-- Turning off doclint in JDK 8 Javadoc: http://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html -->
+                        <additionalparam>${javadoc.doclint.none}</additionalparam>
+                        <quiet>true</quiet>
                     </configuration>
                     <executions>
                         <execution>

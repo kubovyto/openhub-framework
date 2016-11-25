@@ -32,7 +32,7 @@ import org.openhubframework.openhub.core.common.dao.RequestResponseDao;
 
 /**
  * Default implementation of {@link RequestResponseService} interface.
- * <p/>
+ * <p>
  * Implementation saves directly requests/responses into database in synchronous manner.
  *
  * @author Petr Juza

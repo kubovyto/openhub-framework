@@ -59,7 +59,7 @@ public interface MessageService {
 
     /**
      * Changes state of the message to {@link MsgStateEnum#OK}.
-     * <p/>
+     * <p>
      * If message is child message then method checks if all child messages of the parent message aren't processed.
      *
      * @param msg the message
@@ -112,7 +112,7 @@ public interface MessageService {
 
     /**
      * Changes state of the message to {@link MsgStateEnum#FAILED}.
-     * <p/>
+     * <p>
      * If message is child message then parent message will be marked as failed too.
      *
      * @param msg the message
@@ -129,7 +129,7 @@ public interface MessageService {
 
     /**
      * Changes state of the message to {@link MsgStateEnum#FAILED}.
-     * <p/>
+     * <p>
      * If message is child message then parent message will be marked as failed too.
      *
      * @param msg the message

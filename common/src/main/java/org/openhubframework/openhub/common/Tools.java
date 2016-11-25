@@ -115,6 +115,7 @@ public final class Tools {
      *
      * @param obj   the object graph
      * @param qName the QName
+     * @param <T> as data type of object
      * @return XML as string
      * @see Marshaller
      */
@@ -143,6 +144,7 @@ public final class Tools {
      *
      * @param xml the input string
      * @param targetClass the target class
+     * @param <T> as data type of target object
      * @return object graph
      * @see XmlConverter
      */

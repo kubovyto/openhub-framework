@@ -50,7 +50,7 @@ public interface RequestResponseService {
 
     /**
      * Gets last request specified by target URI and response-join ID.
-     * <p/>
+     * <p>
      * Note: there can be more requests for one message and external system because of reprocessing the message.
      * Therefore last request is used.
      *

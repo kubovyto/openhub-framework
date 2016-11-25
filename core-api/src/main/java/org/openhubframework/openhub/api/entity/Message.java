@@ -288,10 +288,10 @@ public class Message implements HumanReadable {
 
     /**
      * Gets type of the entity that is being changed.
-     * <p/>
+     * <p>
      * In general it's enough to detect identical changed data by objectId and operation name but there are
      * few different operations which can change the same data (e.g. setCustomer, setCustomerExt).
-     * <p/>
+     * <p>
      * If defined then it will be used for "obsolete operation call" detection instead of operation name.
      *
      * @return entity type
@@ -474,7 +474,7 @@ public class Message implements HumanReadable {
 
     /**
      * Gets error code if last try was unsuccessful with error.
-     * <p/>
+     * <p>
      * Note: there can be only one error during message processing because next processing is stopped
      * when an error occurred.
      *
@@ -545,7 +545,7 @@ public class Message implements HumanReadable {
 
     /**
      * Gets custom data.
-     * <p/>
+     * <p>
      * Custom data can be used for saving arbitrary data for transferring state between more processing calls
      * of the asynchronous message.
      *
@@ -562,11 +562,11 @@ public class Message implements HumanReadable {
 
     /**
      * Gets business error descriptions.
-     * <p/>
+     * <p>
      * During processing of asynchronous message can be collected lot of business errors which is suitable
      * to present to source (callee) system (for example when we want to create new customer and this customer
      * doesn't have valid customer number).
-     * <p/>
+     * <p>
      * Each error description is separated by {@value #ERR_DESC_SEPARATOR}.
      *
      * @return business error descriptions
@@ -641,7 +641,7 @@ public class Message implements HumanReadable {
 
     /**
      * Is parent message that has child messages?
-     * <p/>
+     * <p>
      * Note: binding between child and parent message must be {@link BindingTypeEnum#HARD hard}.
      *
      * @return {@code true} when this message is parent, otherwise {@code false}
@@ -702,7 +702,7 @@ public class Message implements HumanReadable {
     /**
      * Returns {@code true} if FAILED state should be excluded from guaranteed order.
      * {@link MsgStateEnum#FAILED FAILED} state is used for guaranteed order by default;
-     * <p/>
+     * <p>
      * This option has influence only if {@link #isGuaranteedOrder() guaranteed processing order} is enabled.
      *
      * @return {@code true} if FAILED state should be excluded

@@ -30,10 +30,10 @@ import org.openhubframework.openhub.api.common.HumanReadable;
 /**
  * Evidence of calls to external systems (billing, VF, ...).
  * This table serves for checking of duplication calls to external systems and checks obsolete calls.
- * <p/>
+ * <p>
  * Entity ID contains real entity ID for operations which change existing data
  * or correlationID for operations which creates new data.
- * <p/>
+ * <p>
  * Special case are confirmations which have operation with the name "{@value #CONFIRM_OPERATION}"
  * and entity ID will be set to {@link Message#getMsgId() message ID}.
  * There are only confirmations which failed previously.
@@ -115,6 +115,8 @@ public class ExternalCall implements HumanReadable {
     /**
      * Creates a new external call with {@link ExternalCallStateEnum#PROCESSING processing} state.
      *
+     * @param operationName the name of operation 
+     * @param entityId  the ID of entity (external ID as constraint of processing)
      * @param msg the message
      * @return external call entity
      */

@@ -52,10 +52,10 @@ import org.openhubframework.openhub.common.Profiles;
 /**
  * Configuration checker that is called when application context is initialized.
  * There are some predefined checks or you can define your own checking via {@link ConfCheck} interface.
- * <p/>
+ * <p>
  * Checking of {@link #checkLocalhostUri() localhost URI} must be explicitly enabled by setting
  * property "{@code ohf.server.localhostUri.check}".
- * <p/>
+ * <p>
  * Initialized this listener in child "Spring WS" application context.
  *
  * @author Petr Juza

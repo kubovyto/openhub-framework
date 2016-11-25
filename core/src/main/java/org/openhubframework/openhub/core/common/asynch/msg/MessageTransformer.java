@@ -43,10 +43,10 @@ import org.openhubframework.openhub.core.common.asynch.TraceHeaderProcessor;
 
 /**
  * Processes input message and transform it to {@link Message} entity.
- * <p/>
+ * <p>
  * Prerequisite: exchange with several header values - see input params of {@link #createMessage}
  * (call {@link AsynchInMessageRoute} before)
- * <p/>
+ * <p>
  * Output: {@link Message} entity in the state {@link MsgStateEnum#PROCESSING} because we want to process
  * the message immediately
  *
@@ -78,6 +78,8 @@ public final class MessageTransformer {
      * @param objectId the object ID
      * @param entityType the entity type
      * @param funnelValue the funnel value
+     * @param guaranteedOrder the flag if order is guaranteed or not
+     * @param excludeFailedState the exclude failed state flag
      * @return new message
      */
     @Handler

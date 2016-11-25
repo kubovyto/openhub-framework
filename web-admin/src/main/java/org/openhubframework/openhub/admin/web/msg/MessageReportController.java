@@ -56,10 +56,10 @@ public class MessageReportController {
 
     /**
      * Initial controller method, when the user lands on the page /admin/messageReport.
-     * By default is loaded the messageReportList based on the current date - 7 days> and the current date
+     * By default is loaded the messageReportList based on the current date - 7 days&gt; and the current date
      *
      * @param model controller object for binding variables into the view template
-     * @return renders the msgRep view -> /freemarker/msgRep.ftl
+     * @return renders the msgRep view -&gt; /freemarker/msgRep.ftl
      */
     @RequestMapping(value = "/messageReport", method = RequestMethod.GET)
     public String showMessageReport(@ModelAttribute("model") ModelMap model) {
@@ -77,7 +77,7 @@ public class MessageReportController {
      * @param startDate user-input from the web form
      * @param endDate   user-input from the web form
      * @param model     controller object for binding variables into the view template
-     * @return renders the updated msgRep view -> /freemarker/msgRep.ftl
+     * @return renders the updated msgRep view -&gt; /freemarker/msgRep.ftl
      */
     @RequestMapping(value = "/updatereport", method = RequestMethod.POST)
     public String updateMessageReport(@RequestParam("formStartDate") String startDate,

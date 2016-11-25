@@ -171,6 +171,11 @@ public abstract class AbstractTest {
     /**
      * Shorthand for {@link CoreMatchers#is(org.hamcrest.Matcher) is}
      * ({@link #equalDateTime(org.joda.time.ReadableInstant) equalDateTime}(expected)).
+     * 
+     * @param expected date time object 
+     * @param <T> as date type definition
+     * 
+     * @return matcher for {@link ReadableInstant} 
      */
     public static <T extends ReadableInstant> Matcher<T> isDateTime(final T expected) {
         return is(equalDateTime(expected));
@@ -223,11 +228,12 @@ public abstract class AbstractTest {
     /**
      * Mocks a hand-over-type endpoint (direct, direct-vm, seda or vm)
      * by simply providing the other (consumer=From) side connected to a mock.
-     * <p/>
+     * <p>
      * There should be no consumer existing, i.e., the consumer route should not be started.
      *
      * @param uri the URI a new mock should consume from
      * @return the mock that is newly consuming from the URI
+     * @throws Exception if error occurs during mocking required route
      */
     protected MockEndpoint mockDirect(final String uri) throws Exception {
         return mockDirect(uri, null);
@@ -240,6 +246,7 @@ public abstract class AbstractTest {
      * @param routeId the route ID for the new mock route
      *                (existing route with this ID will be overridden by this new route)
      * @return the mock that is newly consuming from the URI
+     * @throws Exception if error occurs during mocking required route
      */
     protected MockEndpoint mockDirect(final String uri, final String routeId) throws Exception {
         // precaution: check that URI can be mocked by just providing the other side:

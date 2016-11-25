@@ -39,7 +39,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Parses log file and returns log lines which corresponds with specified correlation ID.
- * <p/>
+ * <p>
  * Prerequisites/known limitations:
  * <ul>
  *     <li>application logs in DEBUG level

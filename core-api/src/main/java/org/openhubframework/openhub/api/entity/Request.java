@@ -33,7 +33,7 @@ import org.openhubframework.openhub.api.common.HumanReadable;
 
 /**
  * Entity for saving request with external system or during internal communication.
- * <p/>
+ * <p>
  * Request is uniquely identified by its {@link #getUri() URI} and {@link #getResponseJoinId() response join ID}.
  * Both these attributes helps to join right request and response together.
  *

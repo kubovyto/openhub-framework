@@ -54,7 +54,11 @@ public class LogParserConfig {
         return new LogEvent(this);
     }
 
-    /** the date to find log lines after */
+    /** 
+     * The date to find log lines after
+     * 
+     * @return filter from date
+     */
     public DateTime getFromDate() {
         return fromDate;
     }
@@ -63,7 +67,11 @@ public class LogParserConfig {
         this.fromDate = fromDate;
     }
 
-    /** the limit of how many lines should be returned */
+    /** 
+     * The limit of how many lines should be returned
+     * 
+     * @return limit
+     */
     public Integer getLimit() {
         return limit;
     }
@@ -74,6 +82,8 @@ public class LogParserConfig {
 
     /**
      * The Property=Value sets that the specified log event should have in order to not be ignored.
+     * 
+     * @return  map that represent filter
      */
     public Map<String, String> getFilter() {
         return filter;
@@ -90,6 +100,8 @@ public class LogParserConfig {
 
     /**
      * The property names that results will be grouped by.
+     * 
+     * @return list of group names
      */
     public List<String> getGroupBy() {
         return groupBy;
@@ -104,7 +116,11 @@ public class LogParserConfig {
         }
     }
 
-    /** max number of lines to return for each group */
+    /**
+     * Max number of lines to return for each group
+     *
+     * @return limit for group
+     */
     public Integer getGroupLimit() {
         return groupLimit;
     }

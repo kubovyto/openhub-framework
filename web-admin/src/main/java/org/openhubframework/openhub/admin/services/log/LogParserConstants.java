@@ -45,7 +45,7 @@ public class LogParserConstants {
     /**
      * Matches the log line with each value being in a separate matching group.
      * See the logback.xml config for up-to-date log appender pattern:
-     * <p/>
+     * <p>
      * %d{ISO8601} [${MACHINE}, %thread, %X{REQUEST_URI}, %X{REQUEST_ID}, %X{SESSION_ID}, %X{SOURCE_SYSTEM}, %X{CORRELATION_ID}] %-5level %logger{36} - %msg%n
      */
     public static final Pattern LOG_LINE_PROPERTIES_PATTERN = Pattern.compile(
@@ -59,7 +59,7 @@ public class LogParserConstants {
     /**
      * Printer that can print logback ISO8601 "yyyy-MM-dd HH:mm:ss,SSS" (with space)
      * as opposed to printing standard ISO8601 "yyyy-MM-dd'T'HH:mm:ss,SSS" (with T).
-     * <p/>
+     * <p>
      * Time zones are neither printed, nor parsed.
      */
     public static final DateTimeFormatter LOGBACK_ISO8601_FORMAT = new DateTimeFormatterBuilder()
@@ -82,7 +82,7 @@ public class LogParserConstants {
      * Formatter that prints full ISO8601 date with 'T',
      * but can parse full date and time with either 'T' or space as separator,
      * and time being optionally only partial (such as just hours, hours and minutes, etc.).
-     * <p/>
+     * <p>
      * Time zones are neither printed, nor parsed.
      */
     public static final DateTimeFormatter LOGBACK_ISO8601_OPTIONAL_TIME_FORMAT = new DateTimeFormatterBuilder()
