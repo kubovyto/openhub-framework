@@ -37,10 +37,12 @@ import org.springframework.util.Assert;
 import org.openhubframework.openhub.api.entity.ExternalSystemExtEnum;
 import org.openhubframework.openhub.api.entity.Message;
 import org.openhubframework.openhub.api.entity.MsgStateEnum;
+import org.openhubframework.openhub.api.entity.Node;
 import org.openhubframework.openhub.api.exception.ErrorExtEnum;
 import org.openhubframework.openhub.core.common.dao.MessageDao;
 import org.openhubframework.openhub.core.common.exception.ExceptionTranslator;
 import org.openhubframework.openhub.spi.msg.MessageService;
+import org.openhubframework.openhub.spi.node.NodeService;
 
 
 /**
@@ -54,6 +56,9 @@ public class MessageServiceImpl implements MessageService {
     private static final Logger LOG = LoggerFactory.getLogger(MessageServiceImpl.class);
 
     private final TransactionTemplate transactionTemplate;
+
+    @Autowired
+    private NodeService nodeService;
 
     @Autowired
     private MessageDao messageDao;
@@ -147,6 +152,7 @@ public class MessageServiceImpl implements MessageService {
         Date currDate = new Date();
         msg.setStartProcessTimestamp(currDate);
         msg.setLastUpdateTimestamp(currDate);
+        msg.setNodeId(nodeService.getActualNode().getNodeId());
 
         messageDao.update(msg);
 
@@ -306,11 +312,12 @@ public class MessageServiceImpl implements MessageService {
                         + message.getState());
 
         boolean result;
+        final Node actualNode = nodeService.getActualNode();
         try {
             result = transactionTemplate.execute(new TransactionCallback<Boolean>() {
                 @Override
                 public Boolean doInTransaction(final TransactionStatus transactionStatus) {
-                    return messageDao.updateMessageInQueueUnderLock(message);
+                    return messageDao.updateMessageInQueueUnderLock(message, actualNode);
                 }
             });
         } catch (DataAccessException ex) {
@@ -318,10 +325,11 @@ public class MessageServiceImpl implements MessageService {
         }
 
         if (result) {
-            LOG.debug("Successfully locked message: {} for changed state: {}", message.toHumanString(),
-                    MsgStateEnum.IN_QUEUE);
+            LOG.debug("Successfully locked message: {} for changed state: {} in node: {}", message.toHumanString(),
+                    MsgStateEnum.IN_QUEUE, actualNode.toHumanString());
         } else {
-            LOG.debug("Failed to lock message: {} for change state: {}", message.getMsgId(), MsgStateEnum.IN_QUEUE);
+            LOG.debug("Failed to lock message: {} for change state: {} in node: {}", message.getMsgId(),
+                    MsgStateEnum.IN_QUEUE, actualNode.toHumanString());
         }
         return result;
     }
@@ -333,11 +341,12 @@ public class MessageServiceImpl implements MessageService {
                 "the message must be in IN_QUEUE state, but state is " + message.getState());
 
         boolean result;
+        final Node actualNode = nodeService.getActualNode();
         try {
             result = transactionTemplate.execute(new TransactionCallback<Boolean>() {
                 @Override
                 public Boolean doInTransaction(final TransactionStatus transactionStatus) {
-                    return messageDao.updateMessageProcessingUnderLock(message);
+                    return messageDao.updateMessageProcessingUnderLock(message, actualNode);
                 }
             });
         } catch (DataAccessException ex) {
@@ -345,10 +354,11 @@ public class MessageServiceImpl implements MessageService {
         }
 
         if (result) {
-            LOG.debug("Successfully locked message: {} for changed state: {}", message.toHumanString(),
-                    MsgStateEnum.PROCESSING);
+            LOG.debug("Successfully locked message: {} for changed state: {} in node: {}", message.toHumanString(),
+                    MsgStateEnum.PROCESSING, actualNode.toHumanString());
         } else {
-            LOG.debug("Failed to lock message: {} for change state: {}", message.getMsgId(), MsgStateEnum.PROCESSING);
+            LOG.debug("Failed to lock message: {} for change state: {} in node: {}", message.getMsgId(),
+                    MsgStateEnum.PROCESSING, actualNode.toHumanString());
         }
         return result;
     }

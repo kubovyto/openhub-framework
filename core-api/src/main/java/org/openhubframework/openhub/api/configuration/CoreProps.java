@@ -142,6 +142,10 @@ public class CoreProps {
      */
     public static final String ALERTS_REPEAT_TIME_SEC = PREFIX + "alerts.repeatTimeSec";
 
+    /**
+     * Code of actual node for this application server instance.
+     */
+    public static final String NODE_ACTUAL_INSTANCE_CODE = PREFIX + "node.actualInstance.code";
 
     private CoreProps() {
     }

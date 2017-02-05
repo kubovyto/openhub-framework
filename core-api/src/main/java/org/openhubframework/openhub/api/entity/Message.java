@@ -163,6 +163,8 @@ public class Message implements HumanReadable {
     @Transient
     private int processingPriority;
 
+    @Column(name = "node_id", nullable = true)
+    private Long nodeId;
 
     /**
      * Empty (default) constructor.
@@ -762,6 +764,25 @@ public class Message implements HumanReadable {
         this.processingPriority = processingPriority;
     }
 
+    /**
+     * Gets identifier of node that process this message.
+     *
+     * @return node identifier, {@code NULL} no node process this message
+     */
+    @Nullable
+    public Long getNodeId() {
+        return nodeId;
+    }
+
+    /**
+     * Sets identifier of node that process this message.
+     *
+     * @param nodeId node identifier, {@code NULL} no node process this message
+     */
+    public void setNodeId(@Nullable Long nodeId) {
+        this.nodeId = nodeId;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -813,6 +834,7 @@ public class Message implements HumanReadable {
             .append("guaranteedOrder", guaranteedOrder)
             .append("excludeFailedState", excludeFailedState)
             .append("processingPriority", processingPriority)
+            .append("nodeId", nodeId)
             .toString();
     }
 

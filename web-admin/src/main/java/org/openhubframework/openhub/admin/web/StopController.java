@@ -16,15 +16,17 @@
 
 package org.openhubframework.openhub.admin.web;
 
-import org.openhubframework.openhub.api.entity.MsgStateEnum;
-import org.openhubframework.openhub.core.common.asynch.stop.StopService;
-import org.openhubframework.openhub.spi.msg.MessageService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import org.openhubframework.openhub.api.entity.MsgStateEnum;
+import org.openhubframework.openhub.api.entity.Node;
+import org.openhubframework.openhub.api.entity.NodeState;
+import org.openhubframework.openhub.spi.msg.MessageService;
+import org.openhubframework.openhub.spi.node.NodeService;
 
 
 /**
@@ -39,7 +41,7 @@ public class StopController {
     private static final String VIEW_NAME = "stop";
 
     @Autowired
-    private StopService stopService;
+    private NodeService nodeService;
 
     @Autowired
     private MessageService messageService;
@@ -50,7 +52,7 @@ public class StopController {
     public String getStoppingState(ModelMap model) {
         addStoppingState(model);
 
-        if (stopService.isStopping()) {
+        if (isNodesInStopping()) {
             addMsgCounts(model);
         }
 
@@ -59,7 +61,10 @@ public class StopController {
 
     @RequestMapping(value = "/stop", method = RequestMethod.POST)
     public String stopEsb(ModelMap model) {
-        stopService.stop();
+        for (Node node : nodeService.getAllNodes()) {
+            node.stop();
+            nodeService.updateNode(node);
+        }
 
         addStoppingState(model);
         addMsgCounts(model);
@@ -69,7 +74,10 @@ public class StopController {
 
     @RequestMapping(value = "/cancelStop", method = RequestMethod.POST)
     public String cancelStopEsb(ModelMap model) {
-        stopService.cancelStopping();
+        for (Node node : nodeService.getAllNodes()) {
+            node.run();
+            nodeService.updateNode(node);
+        }
 
         addStoppingState(model);
 
@@ -77,11 +85,25 @@ public class StopController {
     }
 
     private void addStoppingState(ModelMap model) {
-        model.addAttribute("isStopping", stopService.isStopping());
+        model.addAttribute("isStopping", isNodesInStopping());
     }
 
     private void addMsgCounts(ModelMap model) {
         model.addAttribute("processingCount", messageService.getCountMessages(MsgStateEnum.PROCESSING, null));
         model.addAttribute("waitingForResCount", messageService.getCountMessages(MsgStateEnum.WAITING_FOR_RES, null));
+    }
+
+    /**
+     * Gets if all nodes are in {@link NodeState#STOPPED}.
+     *
+     * @return {@code true} all node is in {@link NodeState#STOPPED}, {@code false} - otherwise
+     */
+    private boolean isNodesInStopping() {
+        for (Node node : nodeService.getAllNodes()) {
+            if (!node.isStopped()) {
+                return false;
+            }
+        }
+        return true;
     }
 }
